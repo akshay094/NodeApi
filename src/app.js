@@ -49,6 +49,18 @@ app.get('/students/:id', async (req, res) => {
   }
 })
 
+app.delete("/students/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const res = await Student.findByIdAndDelete({ _id })
+    if (!_id) {
+      return res.status(404).send()
+    }
+    res.send(res);
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
 
 
 app.listen(port, () => {
