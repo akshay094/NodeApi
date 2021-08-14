@@ -6,7 +6,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-    trim: true
   },
   email: {
     type: String,
@@ -22,8 +21,7 @@ const studentSchema = new mongoose.Schema({
     type: Number,
     required: true,
     unique: true,
-    min: 10,
-    max: 10
+    min: 10
   },
   address: {
     type: String,

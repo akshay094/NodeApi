@@ -1,10 +1,9 @@
 require('./db/conn')
 const Student = require('./models/students')
-
 const express = require('express')
 const app = express();
 const port = process.env.PORT || 8000;
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send("hey There")
@@ -24,6 +23,33 @@ app.post('/students', (req, res) => {
     }
   }
 })
+
+app.get('/students', async (req, res) => {
+  try {
+    const respo = await Student.find()
+    res.send(respo)
+  } catch (err) {
+    res.send(err)
+  }
+})
+
+app.get('/students/:id', async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const respo = await Student.find({ _id })
+
+    if (!respo) {
+      return res.status(404).send()
+    } else {
+      res.send(respo)
+    }
+
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
+
 
 app.listen(port, () => {
   console.log(` Server Started at port ${port}`);
