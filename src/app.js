@@ -62,6 +62,15 @@ app.delete("/students/:id", async (req, res) => {
   }
 })
 
+app.patch("/students/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const res = await Student.findByIdAndUpdate(_id, req.body)
+    res.send(res);
+  } catch (err) {
+    res.status(404).send(err)
+  }
+})
 
 app.listen(port, () => {
   console.log(` Server Started at port ${port}`);
